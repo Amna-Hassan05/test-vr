@@ -1,0 +1,2 @@
+# Keep the folder in git; ignore recorded session CSVs
+*.csv

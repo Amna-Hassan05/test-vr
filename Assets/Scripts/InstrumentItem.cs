@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public enum InstrumentType { Scalpel, Scissors, Grasper, Clamp, NeedleHolder, Dissector }
-
-[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable))]
+[RequireComponent(typeof(XRGrabInteractable))]
 public class InstrumentItem : MonoBehaviour
 {
     public InstrumentType type;
-    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab;
+    XRGrabInteractable grab;
 
     void Awake()
     {
-        grab = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        grab = GetComponent<XRGrabInteractable>();
     }
 
     void OnEnable()
@@ -26,6 +25,7 @@ public class InstrumentItem : MonoBehaviour
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
-        GameManager.Instance.OnInstrumentSelected(type);
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnInstrumentSelected(type);
     }
 }
